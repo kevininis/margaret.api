@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bebidas', function (Blueprint $table) {
             $table->increments('idBebida');
             $table->string('nombreBebida', 50);
-            $table->string('descripcionBebida', 200);
+            $table->string('descripcionBebida', 200)->nullable();
             $table->decimal('precioBebida', 12, 2);
             $table->unsignedInteger('idCategoriaBebida');
             $table->foreign('idCategoriaBebida')->references('idCategoria')->on('categorias')->onUpdate('cascade')->onDelete('cascade');

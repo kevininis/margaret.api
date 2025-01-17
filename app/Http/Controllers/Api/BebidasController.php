@@ -18,7 +18,7 @@ class BebidasController extends Controller
         return response()->json([
             'messaje' => 'Lista traida exitosamente',
             'ListaBebidas' => $listaBebidas,
-        ]);
+        ], 200);
     }
 
     /**
@@ -27,16 +27,16 @@ class BebidasController extends Controller
     public function store(Request $request)
     {
         $nuevaBebida = new Bebidas;
-        $nuevaBebida->nombreBebida = $request->nombreBebida;
-        $nuevaBebida->descripcionBebida = $request->descripcionBebida;
-        $nuevaBebida->precioBebida = $request->precioBebida;
-        $nuevaBebida->idCategoriaBebida = $request->idCategoriaBebida;
+        $nuevaBebida->nombreBebida = $request->name;
+        $nuevaBebida->descripcionBebida = $request->description;
+        $nuevaBebida->precioBebida = $request->price;
+        $nuevaBebida->idCategoriaBebida = $request->category;
         $nuevaBebida->save();
 
         return response()->json([
-            'messaje'   => 'Nueva bebida creada exitosamente',
+            'message'   => 'Nueva bebida creada exitosamente',
             'data'      => $nuevaBebida
-        ]);
+        ], 200);
     }
 
     /**

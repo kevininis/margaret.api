@@ -15,7 +15,10 @@ class CategoriasController extends Controller
     {
         $listaCategorias = Categoria::with(['bebidas'])->get();
 
-        return $listaCategorias;
+        return response()->json([
+            'message' => 'Categorías traidas exitosamente',
+            'ListaCategorias'    => $listaCategorias
+        ], 200);
     }
 
     /**
@@ -31,7 +34,7 @@ class CategoriasController extends Controller
         return response()->json([
             'message' => 'Categoria creada exitosamente',
             'data'    => $nuevaCategoria
-        ]);
+        ], 200);
     }
 
     /**
