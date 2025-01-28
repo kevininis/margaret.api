@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bebidas;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+
 
 class BebidasController extends Controller
 {
@@ -58,8 +62,46 @@ class BebidasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bebidas $bebidas)
+    
+    public function destroy (Request $request) 
     {
-        //
+        try {
+            $eliminarBebida = Bebidas::find($request->idBebida);
+            $eliminarBebida->delete();
+            
+            return response()->json([
+                'message' => 'Bebida eliminada exitosamente'
+            ],200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Error al eliminar la bebida',
+                'error' => $e
+            ]);
+        }
+    }
+
+
+    public function destroySelected(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            foreach ($request->selectedProducts as $bebidas) {
+                $eliminarBebidas = Bebidas::find($bebidas['idBebida']);
+                $eliminarBebidas->delete();
+            }
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Bebidas eliminadas exitosamente',
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            DB::rollback();
+            
+            return response()->json([
+                'message' => 'Error al eliminar las bebidas',
+                'error' => $e
+            ]);
+        }
     }
 }

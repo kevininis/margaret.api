@@ -28,3 +28,5 @@ Route::delete('mesas', [MesasController::class, 'destroy'])->name('api.v1.mesas.
 Route::post('/nuevaBebida', [BebidasController::class, 'store'])->name('nuevaBebida');
 Route::get('/listaBebidas', [BebidasController::class, 'index'])->name('listaBebias');
 Route::put('/modificarBebida', [BebidasController::class, 'update']);
+Route::post('/eliminarBebida', [BebidasController::class, 'destroy']);
+Route::post('/eliminarBebidas', [BebidasController::class, 'destroySelected']);
