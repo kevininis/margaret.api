@@ -27,13 +27,12 @@ class CategoriasController extends Controller
     public function store(Request $request)
     {
         $nuevaCategoria = new Categoria;
-        $nuevaCategoria->nombreCategoria = $request->nombreCategoria;
-        $nuevaCategoria->descripcioncategoria = $request->descripcionCategoria;
+        $nuevaCategoria->nombreCategoria = $request->name;
+        $nuevaCategoria->descripcioncategoria = $request->description;
         $nuevaCategoria->save();
 
         return response()->json([
             'message' => 'Categoria creada exitosamente',
-            'data'    => $nuevaCategoria
         ], 200);
     }
 
